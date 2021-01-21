@@ -42,6 +42,10 @@
           "description": "Which SASS compiler to use (default is deprecated \"legacy\" during v6, will default to \"latest\" in v7)",
           "type": "string",
           "pattern": "^(legacy|latest)$"
+        },
+        "copyOriginal": {
+          "description": "Whether to copy the original .scss files into the resources output",
+          "type": "boolean"
         }
       }
     },
@@ -210,6 +214,13 @@
           "environment": {
             "$ref": "#/properties/environment"
           },
+          "preserveEnvironment": {
+            "description": "a list of environment settings that will be ignored for code elimination, ie settings which *must* be configured at runtime",
+            "type": "array", 
+            "items": {
+              "type": "string"
+            }
+          },
           "writeCompileInfo": {
             "description": "if true, the target will write a compile-info.json and resources.json into the application's output directory, containing the data structures required to generate an application",
             "type":"boolean"
@@ -223,16 +234,20 @@
             "type": "string",
             "pattern": "^(off|minify|mangle|beautify)$"
           },
-		  "deploy-source-maps": {
+		      "deploy-source-maps": {
             "description": "If true, the source maps will be deployed.",
             "type": "boolean"
-		  },
+		      },
           "save-source-in-map": {
             "description": "If true, the source file will be saved in the map file if the target supports it. Can be overridden on a per application basis.",
             "type": "boolean"
           },
           "save-unminified": {
             "description": "If true, the unminified files will be saved if the target supports it. Can be overridden on a per application basis.",
+            "type": "boolean"
+          },
+          "inline-external-scripts": {
+            "description": "If true, external resources which are Javascript will be inlined before loading the boot code",
             "type": "boolean"
           },
           "addCreatedAt": {
